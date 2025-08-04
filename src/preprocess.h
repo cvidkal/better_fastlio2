@@ -16,7 +16,8 @@ enum LID_TYPE
 enum LIVOX_TYPE
 {
   LIVOX_CUS = 1,
-  LIVOX_ROS
+  LIVOX_ROS,
+  LIVOX_ROS_SKYLAND
 };
 
 enum TIME_UNIT
@@ -85,11 +86,25 @@ namespace livox_ros
     PCL_ADD_RGB;                    // RGB
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW // 进行内存对齐
   };
+  struct EIGEN_ALIGN16 PointSkyland
+  {
+    PCL_ADD_POINT4D;                // 4D点坐标类型,xyz+padding,float padding用于填补位数,以满足存储对齐要求
+    float intensity;                // Reflectivity
+    uint8_t tag;                    // Livox point tag
+    uint8_t line;                   // Laser line id
+    uint8_t reflectivity;           // reflectivity, 0~255
+    double timestamp;           // offset time relative to the base time
+    EIGEN_MAKE_ALIGNED_OPERATOR_NEW // 进行内存对齐
+  };
 }
 // 注册livox_ros的Point类型
 POINT_CLOUD_REGISTER_POINT_STRUCT(livox_ros::Point,
                                   (float, x, x)(float, y, y)(float, z, z)
                                   (float, intensity, intensity)(std::uint8_t, tag, tag)(std::uint8_t, line, line)(std::uint8_t, reflectivity, reflectivity)(std::uint32_t, offset_time, offset_time)(float, rgb, rgb))
+// 注册livox_ros_skyland的Point类型
+POINT_CLOUD_REGISTER_POINT_STRUCT(livox_ros::PointSkyland,
+                                  (float, x, x)(float, y, y)(float, z, z)
+                                  (float, intensity, intensity)(std::uint8_t, tag, tag)(std::uint8_t, line, line)(std::uint8_t, reflectivity, reflectivity)(double, timestamp, timestamp))
 
 namespace velodyne_ros
 {
@@ -172,6 +187,7 @@ public:
 private:
   void livox_handler(const livox_ros_driver::CustomMsg::ConstPtr &msg); // 用于对Livox激光雷达数据进行处理
   void livoxros_handler(const sensor_msgs::PointCloud2::ConstPtr &msg); 
+  void livox_ros_skyland_handler(const sensor_msgs::PointCloud2::ConstPtr &msg); 
   void velodyne_handler(const sensor_msgs::PointCloud2::ConstPtr &msg); // 用于对velodyne激光雷达数据进行处理
   void oust64_handler(const sensor_msgs::PointCloud2::ConstPtr &msg);
   void give_feature(pcl::PointCloud<PointType> &pl, vector<orgtype> &types);        // 当前扫描线点云，扫描点属性
