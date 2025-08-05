@@ -1264,6 +1264,7 @@ void livox_pcl_cbk(const livox_ros_driver::CustomMsg::ConstPtr &msg)
 // livox的pointcloud2格式数据的回调函数,将数据引入buffer中
 void livox_ros_cbk(const sensor_msgs::PointCloud2::ConstPtr &msg)
 {
+    printf("livox_ros_cbk\n");
     mtx_buffer.lock(); // 加锁
     scan_count++;
 

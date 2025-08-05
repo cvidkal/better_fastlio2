@@ -519,8 +519,7 @@ void Preprocess::livox_ros_skyland_handler(const sensor_msgs::PointCloud2::Const
         pl_full[i].y = pl_orig.points[i].y;                 // 点的y轴坐标
         pl_full[i].z = pl_orig.points[i].z;                 // 点的z轴坐标
         pl_full[i].intensity = pl_orig.points[i].intensity; // 点的强度
-        pl_full[i].curvature = pl_orig.points[i].timestamp; // 点的曲率
-        printf("timestamp: %lf\n", pl_orig.points[i].timestamp);
+        pl_full[i].curvature = (pl_orig.points[i].timestamp - pl_orig.points[0].timestamp)/1000000; // 点的曲率
 
         // 间距太小不利于特征提取,只有当当前点和上一点的间距>1e-7,并且在最小距离阈值之外,才认为是有用点,加入到pl_surf队列中
         if ((abs(pl_full[i].x - pl_full[i - 1].x) > 1e-7) || (abs(pl_full[i].y - pl_full[i - 1].y) > 1e-7) || (abs(pl_full[i].z - pl_full[i - 1].z) > 1e-7) && (pl_full[i].x * pl_full[i].x + pl_full[i].y * pl_full[i].y + pl_full[i].z * pl_full[i].z > (blind * blind)))

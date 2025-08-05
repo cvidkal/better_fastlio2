@@ -92,7 +92,6 @@ namespace livox_ros
     float intensity;                // Reflectivity
     uint8_t tag;                    // Livox point tag
     uint8_t line;                   // Laser line id
-    uint8_t reflectivity;           // reflectivity, 0~255
     double timestamp;           // offset time relative to the base time
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW // 进行内存对齐
   };
@@ -104,7 +103,7 @@ POINT_CLOUD_REGISTER_POINT_STRUCT(livox_ros::Point,
 // 注册livox_ros_skyland的Point类型
 POINT_CLOUD_REGISTER_POINT_STRUCT(livox_ros::PointSkyland,
                                   (float, x, x)(float, y, y)(float, z, z)
-                                  (float, intensity, intensity)(std::uint8_t, tag, tag)(std::uint8_t, line, line)(std::uint8_t, reflectivity, reflectivity)(double, timestamp, timestamp))
+                                  (float, intensity, intensity)(std::uint8_t, tag, tag)(std::uint8_t, line, line)(double, timestamp, timestamp))
 
 namespace velodyne_ros
 {

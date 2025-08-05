@@ -4,6 +4,15 @@ common:
     imu_topic:  "/imu"
     time_sync_en: false         # ONLY turn on when external time synchronization is really not possible
     
+    rootDir: "/workspace/catkin_ws/result/"
+    savePCD: true                         # https://github.com/TixiaoShan/LIO-SAM/issues/3
+    savePCDDirectory: "PCDs/"        
+    saveSCD: true 
+    saveSCDDirectory: "SCDs/"
+    saveLOG: true
+    saveLOGDirectory: "LOG/"
+    map_save_en: true  # global map
+    pcd_save_interval: 1                 # how many LiDAR frames saved in each pcd
 preprocess:
     lidar_type: 1                # 1 for Livox serials LiDAR, 2 for Velodyne LiDAR
     livox_type: 2
