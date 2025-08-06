@@ -42,3 +42,11 @@ pcd_save:
     map_save_en: true
     interval: -1                 # how many LiDAR frames saved in each pcd file; 
                                  # -1 : all frames will be saved in ONE pcd file, may lead to memory crash when having too much frames.
+
+loop:
+    loopClosureEnableFlag: true 
+    loopClosureFrequency: 1.0
+    historyKeyframeSearchRadius: 10.0
+    historyKeyframeSearchTimeDiff: 30.0
+    historyKeyframeSearchNum: 1  # submap
+    historyKeyframeFitnessScore: 0.2

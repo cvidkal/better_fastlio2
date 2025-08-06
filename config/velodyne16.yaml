@@ -1,6 +1,6 @@
 common:
     lid_topic:  "/velodyne_points"
-    imu_topic:  "/handsfree/imu"
+    imu_topic:  "/imu/data"
     camera_topic: "/usb_cam/image_raw"
     time_sync_en: false         # ONLY turn on when external time synchronization is really not possible
 

@@ -29,6 +29,10 @@ if (OPENMP_FOUND)
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OpenMP_CXX_FLAGS}")
   set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS}   ${OpenMP_C_FLAGS}")
 endif()
+include(FetchContent)
+FetchContent_Declare(rerun_sdk URL
+    https://github.com/rerun-io/rerun/releases/latest/download/rerun_cpp_sdk.zip)
+FetchContent_MakeAvailable(rerun_sdk)
 
 find_package(PythonLibs REQUIRED)
 find_package(catkin REQUIRED COMPONENTS
@@ -75,7 +79,7 @@ add_library(tgrs include/dynamic-remove/tgrs.cpp)
 
 # Executables and linkage with stdc++fs
 add_executable(fastlio_sam_mapping src/laserMapping.cpp)
-target_link_libraries(fastlio_sam_mapping ${catkin_LIBRARIES} ${PCL_LIBRARIES} ${PYTHON_LIBRARIES} ${GeographicLib_LIBRARIES} ${OpenCV_LIBRARIES} ikd_Tree preprocess sc gtsam stdc++fs)
+target_link_libraries(fastlio_sam_mapping ${catkin_LIBRARIES} ${PCL_LIBRARIES} ${PYTHON_LIBRARIES} ${GeographicLib_LIBRARIES} ${OpenCV_LIBRARIES} ikd_Tree preprocess sc gtsam stdc++fs rerun_sdk )
 
 add_executable(multi_session src/multi_session.cpp)
 target_link_libraries(multi_session ${catkin_LIBRARIES} ${PCL_LIBRARIES} ${PYTHON_LIBRARIES} ${GeographicLib_LIBRARIES} incremental_mapping gtsam stdc++fs)
